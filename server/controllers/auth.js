@@ -7,7 +7,7 @@ import { createError } from "../error.js";
 export const signup = async (req, res, next) => {
   try {
     // Validate input
-    const { username, password } = req.body;
+    const { username, email, password } = req.body;
     if (!username || !password) {
       return next(createError(400, "Username and password are required!"));
     }
@@ -17,6 +17,7 @@ export const signup = async (req, res, next) => {
     const hash = bcrypt.hashSync(password, salt);
     const newUser = new User({
       username,
+      email,
       password: hash,
     });
 
